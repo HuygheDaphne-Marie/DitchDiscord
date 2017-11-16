@@ -35,7 +35,8 @@ public class register extends HttpServlet {
         String password = request.getParameter("password");
         String passwordCheck = request.getParameter("passwordCheck");
         
-        if(password.equals(passwordCheck)) {
+        if(password.equals(passwordCheck)) 
+        {
             
         }
     }
