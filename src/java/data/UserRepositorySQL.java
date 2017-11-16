@@ -74,6 +74,7 @@ public class UserRepositorySQL implements UserRepository{
     }
 
     @Override
+<<<<<<< HEAD
     public void deleteUser(User u) {
         try(Connection con = MySQLConnection.getConnection();
             PreparedStatement stmt = con.prepareStatement(DELETE_USER)) {
@@ -85,6 +86,11 @@ public class UserRepositorySQL implements UserRepository{
         } catch(SQLException ex) {
             throw new DitchDiscordException("Couldn't delete user", ex);
         }
+=======
+    public void deleteUser(User u) 
+    {
+        
+>>>>>>> 6af99ca422234bc6abb77dce2c1265f4f6e03f6f
     }
 
     @Override
