@@ -15,6 +15,7 @@ import java.util.List;
 public interface UserRepository {
     public List<User> getAllUsers();
     public User getUserWithNameAndPassword(String name, String hashedPassword);
+    public User getUserByUsername(String username);
     public void AddUser(User u);
     public void deleteUser(User u);
 }

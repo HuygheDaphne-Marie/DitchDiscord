@@ -20,7 +20,7 @@ public class UserRepositorySQL implements UserRepository{
     
     private static final String GET_ALL_USERS = "SELECT * FROM ditchdiscord.user";
     private static final String GET_USERS_WITH_PASSWD_AND_USERNAME = "SELECT * FROM ditchdiscord.user WHERE username = ? AND password = ?";
-//    private static final String GET_USER_WITH_ID = "SELECT * FROM ditchdiscord.user WHERE id = ?";
+    private static final String GET_USER_WITH_ID = "SELECT * FROM ditchdiscord.user WHERE id = ?";
 //    private static final String GET_USER_WITH_USERNAME = "SELECT * FROM ditchdiscord.user WHERE username like ?";
     private static final String ADD_USER = "INSERT INTO ditchdiscord.user (username, password) VALUES(?, ?)";
 //    private static final String DELETE_USER = "DELETE FROM ditchdiscord.user WHERE id = ? AND username = ? AND password = ?";
@@ -82,6 +82,26 @@ public class UserRepositorySQL implements UserRepository{
     @Override
     public void deleteUser(User u) {
         
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        try(Connection con = MySQLConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(GET_USER_WITH_USERNAME)) {
+            
+            stmt.setString(1, username);
+            try(ResultSet rs = stmt.executeQuery()) {
+                User userWithUsername = null;
+                if(rs.next()) {
+                    int id = rs.getInt(FIELD_ID);
+                    String password = rs.getString(FIELD_PASSWORD);
+                    userWithUsername = new User(id, username, password);
+                }
+                return userWithUsername;
+            }
+        } catch(SQLException ex) {
+            throw new DitchDiscordException("Couldn't get user with username", ex);
+        }
     }
     
     
