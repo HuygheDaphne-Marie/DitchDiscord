@@ -1,4 +1,3 @@
-
 package data;
 
 import data.utils.MySQLConnection;
@@ -13,11 +12,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.DitchDiscordException;
 
-public class UserRepositorySQL implements UserRepository{
+public class UserRepositorySQL implements UserRepository {
+
     public static final String FIELD_ID = "id";
     public static final String FIELD_USERNAME = "username";
     public static final String FIELD_PASSWORD = "password";
-    
+
     private static final String GET_ALL_USERS = "SELECT * FROM ditchdiscord.user";
     private static final String GET_USERS_WITH_PASSWD_AND_USERNAME = "SELECT * FROM ditchdiscord.user WHERE username = ? AND password = ?";
     private static final String GET_USER_WITH_ID = "SELECT * FROM ditchdiscord.user WHERE id = ?";
@@ -27,17 +27,17 @@ public class UserRepositorySQL implements UserRepository{
 
     @Override
     public List<User> getAllUsers() {
-        try(Connection con = MySQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement(GET_ALL_USERS)) {
-            
-            try(ResultSet rs = stmt.executeQuery()) {
+        try (Connection con = MySQLConnection.getConnection();
+                PreparedStatement stmt = con.prepareStatement(GET_ALL_USERS)) {
+
+            try (ResultSet rs = stmt.executeQuery()) {
                 List<User> users = new ArrayList<>();
-                while(rs.next()) {
+                while (rs.next()) {
                     users.add(createUser(rs.getInt(FIELD_ID), rs.getString(FIELD_USERNAME), rs.getString(FIELD_PASSWORD)));
                 }
                 return users;
             }
-            
+
         } catch (SQLException ex) {
             throw new DitchDiscordException("Couldn't get all users", ex);
         }
@@ -45,13 +45,13 @@ public class UserRepositorySQL implements UserRepository{
 
     @Override
     public User getUserWithNameAndPassword(String name, String hashedPassword) {
-        try(Connection con = MySQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement(GET_USERS_WITH_PASSWD_AND_USERNAME)){
+        try (Connection con = MySQLConnection.getConnection();
+                PreparedStatement stmt = con.prepareStatement(GET_USERS_WITH_PASSWD_AND_USERNAME)) {
             stmt.setString(1, name);
             stmt.setString(2, hashedPassword);
-            try(ResultSet rs = stmt.executeQuery()){
+            try (ResultSet rs = stmt.executeQuery()) {
                 User u = null;
-                while (rs.next()){                    
+                while (rs.next()) {
                     u = createUser(rs.getInt(FIELD_ID), rs.getString(FIELD_USERNAME), rs.getString(FIELD_PASSWORD));
                 }
                 return u;
@@ -63,57 +63,52 @@ public class UserRepositorySQL implements UserRepository{
 
     @Override
     public void AddUser(User u) {
-        try(Connection con = MySQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement(ADD_USER)) {
+        try (Connection con = MySQLConnection.getConnection();
+                PreparedStatement stmt = con.prepareStatement(ADD_USER)) {
             stmt.setString(1, u.getUsername());
             stmt.setString(2, u.getHashPassword());
             stmt.executeUpdate();
-        } catch(SQLException ex) {
+        } catch (SQLException ex) {
             throw new DitchDiscordException("Couldn't add user", ex);
         }
     }
 
     @Override
-<<<<<<< HEAD
+
     public void deleteUser(User u) {
-        try(Connection con = MySQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement(DELETE_USER)) {
-            
+        try (Connection con = MySQLConnection.getConnection();
+                PreparedStatement stmt = con.prepareStatement(DELETE_USER)) {
+
             stmt.setInt(1, u.getUserId());
             stmt.setString(2, u.getUsername());
             stmt.setString(3, u.getHashPassword());
-            
-        } catch(SQLException ex) {
+
+        } catch (SQLException ex) {
             throw new DitchDiscordException("Couldn't delete user", ex);
         }
-=======
-    public void deleteUser(User u) 
-    {
-        
->>>>>>> 6af99ca422234bc6abb77dce2c1265f4f6e03f6f
     }
 
     @Override
     public User getUserByUsername(String username) {
-        try(Connection con = MySQLConnection.getConnection();
-            PreparedStatement stmt = con.prepareStatement(GET_USER_WITH_USERNAME)) {
-            
+        try (Connection con = MySQLConnection.getConnection();
+                PreparedStatement stmt = con.prepareStatement(GET_USER_WITH_USERNAME)) {
+
             stmt.setString(1, username);
-            try(ResultSet rs = stmt.executeQuery()) {
+            try (ResultSet rs = stmt.executeQuery()) {
                 User userWithUsername = null;
-                if(rs.next()) {
+                if (rs.next()) {
                     int id = rs.getInt(FIELD_ID);
                     String password = rs.getString(FIELD_PASSWORD);
                     userWithUsername = new User(id, username, password);
                 }
                 return userWithUsername;
             }
-        } catch(SQLException ex) {
+        } catch (SQLException ex) {
             throw new DitchDiscordException("Couldn't get user with username", ex);
         }
     }
-    
-    public User createUser(int id, String username, String passwd){
+
+    public User createUser(int id, String username, String passwd) {
         User user = new User(id, username, passwd);
         return user;
     }
