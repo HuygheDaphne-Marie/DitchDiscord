@@ -65,8 +65,8 @@ public class UserRepositorySQL implements UserRepository {
     public void AddUser(User u) {
         try (Connection con = MySQLConnection.getConnection();
                 PreparedStatement stmt = con.prepareStatement(ADD_USER)) {
-            stmt.setString(1, u.getUsername());
-            stmt.setString(2, u.getHashPassword());
+            stmt.setString(1, u.getName());
+            stmt.setString(2, u.getPassword());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             throw new DitchDiscordException("Couldn't add user", ex);
@@ -79,9 +79,9 @@ public class UserRepositorySQL implements UserRepository {
         try (Connection con = MySQLConnection.getConnection();
                 PreparedStatement stmt = con.prepareStatement(DELETE_USER)) {
 
-            stmt.setInt(1, u.getUserId());
-            stmt.setString(2, u.getUsername());
-            stmt.setString(3, u.getHashPassword());
+            stmt.setInt(1, u.getId());
+            stmt.setString(2, u.getName());
+            stmt.setString(3, u.getPassword());
 
         } catch (SQLException ex) {
             throw new DitchDiscordException("Couldn't delete user", ex);
