@@ -15,14 +15,20 @@ import static java.sql.Types.BLOB;
  */
 public class User 
 {
+ private int id;
  private String name;
  private String password;
  private Blob profielfoto;
 
-    public User(String name, String password, Blob profielfoto) {
+    public User(int id, String name, String password, Blob profielfoto) {
+        this.id = id;
         this.name = name;
         this.password = password;
         this.profielfoto = profielfoto;
+    }
+    
+    public User(int id, String name, String password) {
+        this(-1, name, password, null);
     }
 
     public String getName() {
@@ -37,8 +43,12 @@ public class User
         return profielfoto;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
  
- 
- 
-    
 }
