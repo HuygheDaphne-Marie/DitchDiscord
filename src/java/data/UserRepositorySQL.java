@@ -21,9 +21,9 @@ public class UserRepositorySQL implements UserRepository{
     private static final String GET_ALL_USERS = "SELECT * FROM ditchdiscord.user";
     private static final String GET_USERS_WITH_PASSWD_AND_USERNAME = "SELECT * FROM ditchdiscord.user WHERE username = ? AND password = ?";
     private static final String GET_USER_WITH_ID = "SELECT * FROM ditchdiscord.user WHERE id = ?";
-//    private static final String GET_USER_WITH_USERNAME = "SELECT * FROM ditchdiscord.user WHERE username like ?";
+    private static final String GET_USER_WITH_USERNAME = "SELECT * FROM ditchdiscord.user WHERE username like ?";
     private static final String ADD_USER = "INSERT INTO ditchdiscord.user (username, password) VALUES(?, ?)";
-//    private static final String DELETE_USER = "DELETE FROM ditchdiscord.user WHERE id = ? AND username = ? AND password = ?";
+    private static final String DELETE_USER = "DELETE FROM ditchdiscord.user WHERE id = ? AND username = ? AND password = ?";
 
     @Override
     public List<User> getAllUsers() {
@@ -33,10 +33,7 @@ public class UserRepositorySQL implements UserRepository{
             try(ResultSet rs = stmt.executeQuery()) {
                 List<User> users = new ArrayList<>();
                 while(rs.next()) {
-                    int id = rs.getInt(FIELD_ID);
-                    String username = rs.getString(FIELD_USERNAME);
-                    String password = rs.getString(FIELD_PASSWORD);
-                    users.add(new User(id, username, password));
+                    users.add(createUser(rs.getInt(FIELD_ID), rs.getString(FIELD_USERNAME), rs.getString(FIELD_PASSWORD)));
                 }
                 return users;
             }
@@ -54,11 +51,8 @@ public class UserRepositorySQL implements UserRepository{
             stmt.setString(2, hashedPassword);
             try(ResultSet rs = stmt.executeQuery()){
                 User u = null;
-                while (rs.next()){
-                    int id = rs.getInt(FIELD_ID);
-                    String username = rs.getString(FIELD_USERNAME);
-                    String password = rs.getString(FIELD_PASSWORD);
-                    u = new User(id, username, password);
+                while (rs.next()){                    
+                    u = createUser(rs.getInt(FIELD_ID), rs.getString(FIELD_USERNAME), rs.getString(FIELD_PASSWORD));
                 }
                 return u;
             }
@@ -81,7 +75,16 @@ public class UserRepositorySQL implements UserRepository{
 
     @Override
     public void deleteUser(User u) {
-        
+        try(Connection con = MySQLConnection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(DELETE_USER)) {
+            
+            stmt.setInt(1, u.getUserId());
+            stmt.setString(2, u.getUsername());
+            stmt.setString(3, u.getHashPassword());
+            
+        } catch(SQLException ex) {
+            throw new DitchDiscordException("Couldn't delete user", ex);
+        }
     }
 
     @Override
@@ -104,5 +107,8 @@ public class UserRepositorySQL implements UserRepository{
         }
     }
     
-    
+    public User createUser(int id, String username, String passwd){
+        User user = new User(id, username, passwd);
+        return user;
+    }
 }
