@@ -7,7 +7,8 @@
 
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
-  <link rel="stylesheet" href="assets/css/register.css">
+  <link rel="stylesheet" href="assets/css/screen.css">
+  <!-- <link rel="stylesheet" href="assets/css/register.css"> -->
   <title>Login</title>
 </head>
 <body>
@@ -25,27 +26,37 @@
   </header>
 
   <main>
-    <div>
-    <h1>Please enter the credentials you'd like to use</h1>
-    <form action="#" method="post" class="accented">
-      <div class="input-field">
-        <input type="text" id="username" name="username"/>
-        <label for="username" class="active">Username</label>
+    <div class="row">
+      <div class="col s4 offset-s4">
+        <h1 class="center-align">Please enter the credentials you'd like to use</h1>
       </div>
+    </div>
 
-      <div class="input-field">
-        <input type="password" id="password" name="password"/>
-        <label for="password" class="active">Password</label>
+    <form action="#" method="post" class="accented">
+    <div class="row">
+      <div class="col s4 offset-s4">
+        <div class="input-field">
+          <input type="text" id="username" name="username"/>
+          <label for="username" class="active">Username</label>
+        </div>
+
+        <div class="input-field">
+          <input type="password" id="password" name="password"/>
+          <label for="password" class="active">Password</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="passwordCheck" name="passwordCheck"/>
+          <label for="passwordCheck" class="active">Password (again)</label>
+        </div>
+        <!-- TODO: Add captcha  -->
       </div>
-      <div class="input-field">
-        <input type="password" id="passwordCheck" name="passwordCheck"/>
-        <label for="passwordCheck" class="active">Password (again)</label>
+    </div>
+    <div class="row">
+      <div class="col s4 offset-s4">
+        <button class="btn btn-large waves-effect blue darken-2">Register</button>
       </div>
-      <button class="btn btn-large waves-effect blue darken-2">Register</button>
-      <!-- TODO: Add captcha  -->
-    </form>
+    </div>
   </div>
-  </main>
 
   <footer class="page-footer blue darken-2">
     <p class="white-text">Copyright (c) 2017 Copyright Holder All Rights Reserved.</p>
