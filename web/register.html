@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,11 @@
 
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
-  <link rel="stylesheet" href="assets/css/register.css">
+  <link rel="stylesheet" href="assets/css/screen.css">
+  <!-- <link rel="stylesheet" href="assets/css/register.css"> -->
   <title>Login</title>
-  <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
+
 <body>
   <header>
     <nav class="blue darken-2">
@@ -26,27 +28,37 @@
   </header>
 
   <main>
-    <div>
-    <h1>Please enter the credentials you'd like to use</h1>
-    <form action="#" method="post" class="accented">
-      <div class="input-field">
-        <input type="text" id="username" name="username"/>
-        <label for="username" class="active">Username</label>
+    <div class="row">
+      <div class="col s8 offset-s2">
+        <h1 class="center-align">Please enter the credentials you'd like to use</h1>
       </div>
+    </div>
 
-      <div class="input-field">
-        <input type="password" id="password" name="password"/>
-        <label for="password" class="active">Password</label>
+    <form action="#" method="post" class="accented">
+      <div class="row">
+        <div class="col s4 offset-s4">
+          <div class="input-field">
+            <input type="text" id="username" name="username" />
+            <label for="username" class="active">Username</label>
+          </div>
+
+          <div class="input-field">
+            <input type="password" id="password" name="password" />
+            <label for="password" class="active">Password</label>
+          </div>
+          <div class="input-field">
+            <input type="password" id="passwordCheck" name="passwordCheck" />
+            <label for="passwordCheck" class="active">Password (again)</label>
+          </div>
+          <!-- TODO: Add captcha  -->
+        </div>
       </div>
-      <div class="input-field">
-        <input type="password" id="passwordCheck" name="passwordCheck"/>
-        <label for="passwordCheck" class="active">Password (again)</label>
+      <div class="row">
+        <div class="col s2 offset-s5">
+          <button class="btn btn-large waves-effect blue darken-2">Register</button>
+        </div>
       </div>
-                <div class="g-recaptcha" data-sitekey="6Lfj9DUUAAAAAPqaKHSyBg1zEbF8AkuNjuSQCuQm"></div>
-      <button class="btn btn-large waves-effect blue darken-2">Register</button>
-      <!-- TODO: Add captcha  -->
     </form>
-  </div>
   </main>
 
   <footer class="page-footer blue darken-2">
@@ -57,4 +69,5 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
+
 </html>
