@@ -23,4 +23,5 @@ public class MySQLConnection {
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USR, PWD);
     }
+    
 }

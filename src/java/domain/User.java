@@ -18,19 +18,21 @@ public class User
  private int id;
  private String name;
  private String password;
- private Blob profielfoto;
+ //private Blob profielfoto; dafuq is dis???? -henri
 
     public User(int id, String name, String password, Blob profielfoto) {
         this.id = id;
         this.name = name;
         this.password = password;
-        this.profielfoto = profielfoto;
+        //this.profielfoto = profielfoto;
     }
 
     public User(int id, String name, String password) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
+        this(id, name, password, null);
+    }
+    
+    public User(String name, String password) {
+        this(-1, name, password);
     }
 
     
@@ -45,10 +47,12 @@ public class User
     public String getPassword() {
         return password;
     }
-
+    
+    /*
     public Blob getProfielfoto() {
         return profielfoto;
     }
+*/
 
 
 

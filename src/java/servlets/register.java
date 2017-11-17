@@ -5,8 +5,9 @@
  */
 package servlets;
 
+import data.Repositories;
+import domain.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Henri
  */
-@WebServlet(name = "register", urlPatterns = {"/registerUser"})
+@WebServlet(name = "register", urlPatterns = {"/register"})
 public class register extends HttpServlet {
 
     /**
@@ -31,13 +32,19 @@ public class register extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String passwordCheck = request.getParameter("passwordCheck");
         
-        if(password.equals(passwordCheck)) 
-        {
-            
+        if(password.equals(passwordCheck)) {
+            if(Repositories.getUserRepository().getUserByUsername(username) == null) {
+                Repositories.getUserRepository().AddUser(new User(username, password));
+            }
+            response.sendRedirect("index.html");
+        } else {
+            response.sendRedirect("register.html");
         }
     }
 
