@@ -1,9 +1,9 @@
 CREATE USER 'ditchAdmin'@'localhost' IDENTIFIED BY 'd33z_nu7z';
 
-GRANT DELETE ON ditchdiscord.* TO ‘ditchAdmin’@'localhost’;
-GRANT INSERT ON ditchdiscord.* TO ‘ditchAdmin’@'localhost’;
-GRANT SELECT ON ditchdiscord.* TO ‘ditchAdmin’@'localhost’;
-GRANT UPDATE ON ditchdiscord.* TO ‘ditchAdmin’@'localhost’;
+GRANT DELETE ON ditchdiscord.* TO 'ditchAdmin'@'localhost';
+GRANT INSERT ON ditchdiscord.* TO 'ditchAdmin'@'localhost';
+GRANT SELECT ON ditchdiscord.* TO 'ditchAdmin'@'localhost';
+GRANT UPDATE ON ditchdiscord.* TO 'ditchAdmin'@'localhost';
 
 CREATE DATABASE `ditchdiscord`;
 
