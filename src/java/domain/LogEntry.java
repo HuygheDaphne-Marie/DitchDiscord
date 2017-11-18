@@ -1,15 +1,19 @@
 
 package domain;
 
-import java.time.Instant;
-
 public class LogEntry {
     private String message;
     private int id;
-
-    public LogEntry(String message, int id) {
+    private String timeStamp;
+    
+    public LogEntry(String message, int id, String timeStamp) {
         this.message = message;
         this.id = id;
+        this.timeStamp = timeStamp;
+    }
+
+    public LogEntry(String message, int id) {
+        this(message, id, null);
     }
 
     public LogEntry(String message) {
@@ -30,6 +34,10 @@ public class LogEntry {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
     }
     
     
