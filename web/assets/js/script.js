@@ -16,17 +16,9 @@ function passwordsMatch() {
   return ($("#password").val() === $("#passwordCheck").val());
 };
 
-(function() {
+$(document).ready(function () {
   // Init's
   $(".button-collapse").sideNav();
 
-  if (window.WebSocket) {
-    console.log('Your browser does support websockets!')
-  } else {
-    alert("We're sorry, your browser does not support websockets")
-  }
-  $("#open").on("click", openSocket);
-  $("#send").on("click", send);
-  $("#close").on("click", closeSocket);
   $("#passwordCheck").on("change", checkIfPasswordsMatch);
-})();
+})
