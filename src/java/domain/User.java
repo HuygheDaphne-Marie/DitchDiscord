@@ -32,6 +32,10 @@ public class User
         this.name = name;
         this.password = password;
     }
+    
+    public User(String name){
+        this(-1,name,"");
+    }
 
     
     public int getId() {
