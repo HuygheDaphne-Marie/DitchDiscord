@@ -103,7 +103,7 @@ public class UserRepositorySQL implements UserRepository {
                 if (rs.next()) {
                     int id = rs.getInt(FIELD_ID);
                     String password = rs.getString(FIELD_PASSWORD);
-                    userWithUsername = createUser(id, username, password);
+                    userWithUsername = new User(id, username, password);
                 }
                 return userWithUsername;
             }
