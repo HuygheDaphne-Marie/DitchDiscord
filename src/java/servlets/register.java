@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import com.berry.BCrypt;
 import data.Repositories;
 import domain.User;
 import java.io.IOException;
@@ -36,12 +37,16 @@ public class register extends HttpServlet {
         String password = request.getParameter("password");
         String passwordCheck = request.getParameter("passwordCheck");
         
-        if(password.equals(passwordCheck)) {
-            if(Repositories.getUserRepository().getUserByUsername(username) == null) {
-                Repositories.getUserRepository().AddUser(new User(username, password));
+        if(password.equals(passwordCheck))
+        {
+            if(Repositories.getUserRepository().getUserByUsername(username) == null) 
+            {
+                String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
+                Repositories.getUserRepository().AddUser(new User(username, hashed));
             }
             response.sendRedirect("index.html");
-        } else {
+        } else
+        {
             response.sendRedirect("register.html");
         }
     }
