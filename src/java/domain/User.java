@@ -27,9 +27,9 @@ public class User
         this.profielfoto = profielfoto;
     }
     
-    public User(int id, String name, String password) {
-        this(-1, name, password, null);
-    }
+//    public User(int id, String name, String password) {
+//        this(-1, name, password, null);
+//    }
 
     public User(int id, String name, String password) {
         this.id = id;
@@ -53,18 +53,4 @@ public class User
     public Blob getProfielfoto() {
         return profielfoto;
     }
-
-<<<<<<< HEAD
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-=======
-
-
->>>>>>> master
- 
 }
