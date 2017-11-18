@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Brecht
  */
-@WebFilter(filterName = "LogFilter", urlPatterns = {"/register", "/deleteUser", "/index.html", "/register.html", "/login", "/getUsername", "/chatPage"})
+@WebFilter(filterName = "LogFilter", urlPatterns = {"/index.html", "/register.html", "/register", "/login", "/deleteUser", "/administratorLoginPage.html", "/administratorPage.html"})
 public class LogFilter implements Filter {
     
     private static final boolean debug = true;
