@@ -1,3 +1,4 @@
+<%@page import="domain.LogEntry"%>
 <%@page import="java.util.List"%>
 <%@page import="domain.User"%>
 <%@page import="data.Repositories"%>
@@ -30,15 +31,15 @@
 
   <main>
     <div class="row">
-      <div class="col s4 offset-s1">
+      <div class="col s3 offset-s1">
         <ul id="userlist" class="collection">
-          <% 
+          <%
               List<User> users = Repositories.getUserRepository().getAllUsers();
               for(User u : users) {
           %>
           <li class="collection-item avatar">
-              <img src="https://vintage.ponychan.net/chan/files/src/131999656437.png" alt="profilePicture" class="circle">                
-                    <% 
+              <img src="https://vintage.ponychan.net/chan/files/src/131999656437.png" alt="profilePicture" class="circle">
+                    <%
                     String s = String.format("<p class=\"title\">%s <br><span class='grey-text'>#%05d<span></p>",u.getName(), u.getId());
                     out.print(s);
                     String s2 = String.format("<a href='deleteUser?id=%s' class='secondary-content'><i class='material-icons red-text'>delete</i></a>", u.getId());
@@ -48,6 +49,18 @@
              <%
                 }
              %>
+        </ul>
+      </div>
+      <div class="col s6 offset-s1">
+        <ul id="loglist" class="collection">
+        <% for(LogEntry l : Repositories.getLogEntryRepository().getAllFromDataBase()) { %>
+            <li class="collection-item avatar">
+              <% 
+                  String s = String.format("<span class='title'>log #%05d <span class='grey-text'>%s</span></span><p>%s</p>", l.getId(), l.getTimeStamp(), l.getMessage());
+                  out.print(s);
+              %>
+            </li>
+        <%}%>
         </ul>
       </div>
     </div>
