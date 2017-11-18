@@ -39,7 +39,7 @@ public class deleteUser extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet deleteUser at " + request.getContextPath() + "</h1>");
             out.println("<p>Delete user</p>");
-            
+       
             //UserRepository.deleteUser(User u);
             
             out.println("</body>");
