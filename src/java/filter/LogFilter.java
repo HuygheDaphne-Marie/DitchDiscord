@@ -6,6 +6,7 @@
 package filter;
 
 import data.LogEntryRepositoryMySQL;
+import data.Repositories;
 import domain.LogEntry;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Brecht
  */
-@WebFilter(filterName = "LogFilter", urlPatterns = {"/register", "/index.html", "/register.html" })
+@WebFilter(filterName = "LogFilter", urlPatterns = {"/register", "/deleteUser", "/index.html", "/register.html" })
 public class LogFilter implements Filter {
     
     private static final boolean debug = true;
@@ -45,7 +46,7 @@ public class LogFilter implements Filter {
         String ipAddress = httpRequest.getRemoteAddr();
         String requestedURL = ipAddress + " requested " + httpRequest.getRequestURL() + "?" + httpRequest.getQueryString();
         LogEntry log = new LogEntry(requestedURL);
-        LogEntryRepositoryMySQL.getInstance().addToDataBase(log);
+        Repositories.getLogEntryRepository().addToDataBase(log);
     }    
     
     private void doAfterProcessing(ServletRequest request, ServletResponse response)

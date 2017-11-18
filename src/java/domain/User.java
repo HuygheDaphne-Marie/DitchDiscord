@@ -56,20 +56,8 @@ public class User
         return password;
     }
 
-<<<<<<< HEAD
-    public Blob getProfielfoto() {
-        return profielfoto;
-    }
-=======
 //    public Blob getProfielfoto() {
 //        return profielfoto;
 //    }
 
-
-
- 
- 
- 
-    
->>>>>>> master
 }
