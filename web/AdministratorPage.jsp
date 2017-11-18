@@ -1,6 +1,9 @@
+<%@page import="java.util.List"%>
+<%@page import="domain.User"%>
+<%@page import="data.Repositories"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,17 +12,15 @@
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
   <link rel="stylesheet" href="assets/css/screen.css">
-  <title>DitchDiscord</title>
-  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <title>Admin page</title>
 </head>
-
 <body>
   <header>
     <nav class="blue darken-2">
       <div class="nav-wrapper">
         <a href="index.html" class="brand-logo">Logo</a>
         <ul class="right">
-          <li id="user"><a class="btn waves-effect blue accent-1" href="register.html">Register</a></li>
+          <li id="user">Admin</li>
           <li><i class="material-icons right">account_circle</i></li>
           <!-- TODO: add username username here if logged in & otherwise 'sign in' button -->
         </ul>
@@ -28,31 +29,24 @@
   </header>
 
   <main>
-    <form action="login" method="post" class="accented">
-      <div class="row">
-        <div class="col s4 offset-s4">
-          <div class="input-field">
-            <input type="text" id="username" name="username" />
-            <label for="username" class="active">Username</label>
-          </div>
-
-          <div class="input-field">
-            <input type="password" id="password" name="password" />
-            <label for="password" class="active">Password</label>
-          </div>
-          <div class="g-recaptcha" data-sitekey="6Lfj9DUUAAAAAPqaKHSyBg1zEbF8AkuNjuSQCuQm"></div>
-          <!-- TODO: Add captcha  -->
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s2 offset-s5">
-          <button class="btn btn-large waves-effect blue darken-2">Log in</button>
-        </div>
-      </div>
-    </form>
     <div class="row">
-      <div class="col s4 offset-s4">
-        <p class="grey-text center-align">Don't have an account? <a href="register.html">Register here.</a></p>
+      <div class="col s4 offset-s1">
+        <ul id="userlist" class="collection">
+          <% 
+              List<User> users = Repositories.getUserRepository().getAllUsers();
+              %><p><% users.toString(); %></p><%
+              for(User u : users) {
+          %>
+          <li class="collection-item avatar">
+            <img src="https://vintage.ponychan.net/chan/files/src/131999656437.png" alt="profilePicture" class="circle">
+            <span class="title"><% u.getName();%></span>
+            
+            <a href="deleteUser?id=<% u.getId(); %>" class="secondary-content"><i class="material-icons red-text">delete</i></a>
+          </li>
+          <%
+              }
+          %>
+        </ul>
       </div>
     </div>
   </main>
@@ -65,5 +59,4 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
   <script type="text/javascript" src="assets/js/script.js"></script>
 </body>
-
 </html>

@@ -16,18 +16,10 @@ function passwordsMatch() {
   return ($("#password").val() === $("#passwordCheck").val());
 };
 
-function getAndShowUsername() {
-  $.ajax({url: "getUsername", success: function(result){
-    $("#user").html(result);
-    if($(".user-view p").length != 0) {
-      $(".user-view p").html(result);
-    }
-  }});
-}
-
 $(document).ready(function () {
   // Init's
   $(".button-collapse").sideNav();
 
   $("#passwordCheck").on("change", checkIfPasswordsMatch);
+  
 })
