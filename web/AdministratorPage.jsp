@@ -34,18 +34,23 @@
         <ul id="userlist" class="collection">
           <% 
               List<User> users = Repositories.getUserRepository().getAllUsers();
-              %><p><% users.toString(); %></p><%
               for(User u : users) {
           %>
-          <li class="collection-item avatar">
-            <img src="https://vintage.ponychan.net/chan/files/src/131999656437.png" alt="profilePicture" class="circle">
-            <span class="title"><% u.getName();%></span>
+          <ul class="collection-item avatar">
+              <li><img src="https://vintage.ponychan.net/chan/files/src/131999656437.png" alt="profilePicture" class="circle"></li>
+              
+               <li>                  
+                    <% 
+                    String s = String.format("<span class=\"title\">%s</span>",u.getName());
+                    out.print(s);
+                    %>
+              </li>
             
-            <a href="deleteUser?id=<% u.getId(); %>" class="secondary-content"><i class="material-icons red-text">delete</i></a>
-          </li>
-          <%
-              }
-          %>
+             <li><a href="deleteUser?id=<% u.getId(); %>" class="secondary-content"><i class="material-icons red-text">delete</i></a></li>
+          </ul>
+             <%
+                }
+             %>
         </ul>
       </div>
     </div>
