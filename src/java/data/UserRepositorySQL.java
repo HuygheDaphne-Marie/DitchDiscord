@@ -86,6 +86,7 @@ public class UserRepositorySQL implements UserRepository {
             stmt.setInt(1, u.getId());
             stmt.setString(2, u.getName());
             stmt.setString(3, u.getPassword());
+            stmt.execute();
 
         } catch (SQLException ex) {
             throw new DitchDiscordException("Couldn't delete user", ex);
