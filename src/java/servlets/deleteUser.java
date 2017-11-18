@@ -5,12 +5,9 @@
  */
 package servlets;
 
-
-
-import data.UserRepository;
+import data.Repositories;
 import domain.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,23 +25,10 @@ public class deleteUser extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet deleteUser</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet deleteUser at " + request.getContextPath() + "</h1>");
-            out.println("<p>Delete user</p>");
-            
-            //UserRepository.deleteUser(User u);
-            
-            out.println("</body>");
-            out.println("</html>");
-        }
+        int id = Integer.parseInt(request.getParameter("id"));
+        User u = Repositories.getUserRepository().getUserById(id);
+        Repositories.getUserRepository().deleteUser(u);
+        response.sendRedirect("adminsistratorPage.html");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

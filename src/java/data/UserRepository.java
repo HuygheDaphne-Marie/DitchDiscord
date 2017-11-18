@@ -16,6 +16,7 @@ public interface UserRepository {
     public List<User> getAllUsers();
     public User getUserWithNameAndPassword(String name, String hashedPassword);
     public User getUserByUsername(String username);
+    public User getUserById(int id);
     public void AddUser(User u);
     public void deleteUser(User u);
 }

@@ -111,4 +111,24 @@ public class UserRepositorySQL implements UserRepository {
             throw new DitchDiscordException("Couldn't get user with username", ex);
         }
     }
+
+    @Override
+    public User getUserById(int id) {
+        try (Connection con = MySQLConnection.getConnection();
+                PreparedStatement stmt = con.prepareStatement(GET_USER_WITH_ID)) {
+
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                User userWithUsername = null;
+                if (rs.next()) {
+                    String username = rs.getString(FIELD_USERNAME);
+                    String password = rs.getString(FIELD_PASSWORD);
+                    userWithUsername = new User(id, username, password);
+                }
+                return userWithUsername;
+            }
+        } catch (SQLException ex) {
+            throw new DitchDiscordException("Couldn't get user with username", ex);
+        }
+    }
 }
