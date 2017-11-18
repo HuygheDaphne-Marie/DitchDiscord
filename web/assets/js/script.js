@@ -22,3 +22,9 @@ $(document).ready(function () {
 
   $("#passwordCheck").on("change", checkIfPasswordsMatch);
 })
+
+function loggedIn() {
+  $.ajax({url: "CheckLoggedIn", success: function(result){
+    $("#user").html(result);
+  }});
+}
