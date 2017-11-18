@@ -18,13 +18,13 @@ public class User
  private int id;
  private String name;
  private String password;
- private Blob profielfoto;
+ // private Blob profielfoto;
 
     public User(int id, String name, String password, Blob profielfoto) {
         this.id = id;
         this.name = name;
         this.password = password;
-        this.profielfoto = profielfoto;
+        // this.profielfoto = profielfoto;
     }
     
 //    public User(int id, String name, String password) {
@@ -32,9 +32,15 @@ public class User
 //    }
 
     public User(int id, String name, String password) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
+        this(id, name, password, null);
+    }
+    
+    public User(String name, String password) {
+        this(-1, name, password);
+    }
+    
+    public User(String name){
+        this(name, null);
     }
 
     
@@ -50,7 +56,20 @@ public class User
         return password;
     }
 
+<<<<<<< HEAD
     public Blob getProfielfoto() {
         return profielfoto;
     }
+=======
+//    public Blob getProfielfoto() {
+//        return profielfoto;
+//    }
+
+
+
+ 
+ 
+ 
+    
+>>>>>>> master
 }
