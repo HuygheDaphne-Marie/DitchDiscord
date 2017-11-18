@@ -34,10 +34,10 @@ public class getUsername extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        if(session.getAttribute("username") == null) {
-            response.sendRedirect("index.html");
-        } else {
+        if(session.getAttribute("username") != null) {
             response.getWriter().write((String)session.getAttribute("username"));
+        } else {
+            request.getRequestDispatcher("index.html");
         }
     }
 
