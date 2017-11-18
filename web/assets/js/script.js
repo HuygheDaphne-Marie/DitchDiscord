@@ -6,9 +6,9 @@ var preventJSInjection = function(text) {
 function checkIfPasswordsMatch(e) {
   e.preventDefault();
   if (!passwordsMatch()) {
-    $("main div form button").attr('disabled', 'disabled');
+    $("main form button").attr('disabled', 'disabled');
   } else {
-    $('main div form button').prop("disabled", false);
+    $('main form button').prop("disabled", false);
   }
 };
 
