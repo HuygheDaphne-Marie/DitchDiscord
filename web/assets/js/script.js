@@ -30,4 +30,5 @@ $(document).ready(function () {
   $(".button-collapse").sideNav();
 
   $("#passwordCheck").on("change", checkIfPasswordsMatch);
+  getAndShowUsername();
 })
