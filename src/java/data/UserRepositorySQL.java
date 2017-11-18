@@ -8,8 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import util.DitchDiscordException;
 
 public class UserRepositorySQL implements UserRepository {
@@ -33,7 +31,10 @@ public class UserRepositorySQL implements UserRepository {
             try (ResultSet rs = stmt.executeQuery()) {
                 List<User> users = new ArrayList<>();
                 while (rs.next()) {
-                    users.add(createUser(rs.getInt(FIELD_ID), rs.getString(FIELD_USERNAME), rs.getString(FIELD_PASSWORD)));
+                    int id = rs.getInt(FIELD_ID);
+                    String username = rs.getString(FIELD_USERNAME);
+                    String password = rs.getString(FIELD_PASSWORD);
+                    users.add(new User(id, username, password));
                 }
                 return users;
             }
@@ -52,7 +53,10 @@ public class UserRepositorySQL implements UserRepository {
             try (ResultSet rs = stmt.executeQuery()) {
                 User u = null;
                 while (rs.next()) {
-                    u = createUser(rs.getInt(FIELD_ID), rs.getString(FIELD_USERNAME), rs.getString(FIELD_PASSWORD));
+                    int id = rs.getInt(FIELD_ID);
+                    String username = rs.getString(FIELD_USERNAME);
+                    String password = rs.getString(FIELD_PASSWORD);
+                    u = new User(id, username, password);
                 }
                 return u;
             }
@@ -106,10 +110,5 @@ public class UserRepositorySQL implements UserRepository {
         } catch (SQLException ex) {
             throw new DitchDiscordException("Couldn't get user with username", ex);
         }
-    }
-
-    public User createUser(int id, String username, String passwd) {
-        User user = new User(id, username, passwd);
-        return user;
     }
 }
