@@ -1,74 +1,73 @@
 var webSocket;
-var messages = document.getElementById("showMessages");
+var convo = $("#convo ul");
+
+var message;
 var username;
-var text;
 
+function send() {
 
-
-function openSocket(e) {
-  e.preventDefault();
-
-
-  webSocket = new WebSocket("ws://localhost:8080/ditchdiscord/echo"); //verander naar ip van server wanneer je remote wil connecten
-
-
-  webSocket.onopen = function(event) {
-    //username = preventJSInjection(document.getElementById("user").value);
-    console.log("this shit works");
-    /*text = "Connected";
+    message = preventJSInjection($("#mess").val());
     var jsondata = {
-        //"username": username,
-        "message": text
+
+        "message": message
     };
     var package = JSON.stringify(jsondata);
-
     webSocket.send(package);
-
-    if (event.data === undefined)
-        return;
-
-    writeResponse(event.data);*/
-  };
-
-  webSocket.onmessage = function(event) {
-    writeResponse(event.data);
-  };
-
-  webSocket.onclose = function(event) {
-    writeResponse(event.data);
-  };
+    console.log(package);
 }
 
-function send(e) {
-  e.preventDefault();
-
-  text = preventJSInjection(document.getElementById("mess").value);
-  var jsondata = {
-    //"username": username,
-    "message": text
-  };
-  var package = JSON.stringify(jsondata);
-
-  webSocket.send(package);
-  console.log("test");
+function addToConversation(message, src) {
+    if (src === "me") {
+        convo.append("<li class=" + src + ">" + message + "</li>");
+    } else if (src === "server") {
+        convo.append("<li class=" + src + ">" + message + "</li>");
+    } else {
+        convo.append("<li class='other'>" + message + "</li>");
+    }
 }
 
-function closeSocket(e) {
-  e.preventDefault();
-  webSocket.close();
-}
-
-function writeResponse(text) {
-  messages.innerHTML += "<br/>" + text;
-}
 
 $(document).ready(function () {
-  if (window.WebSocket) {
-    console.log('Your browser does support websockets!')
-  } else {
-    alert("We're sorry, your browser does not support websockets")
-  }
-  $("#open").on("click", openSocket);
-  $("#send").on("click", send);
-  $("#close").on("click", closeSocket);
-})
+    if (window.WebSocket) {
+        console.log('Your browser does support websockets!');
+        webSocket = new WebSocket("ws://localhost:8080/DitchDiscord/echo"); //verander naar ip van server wanneer je remote wil connecten
+
+
+        webSocket.onopen = function (event) {
+
+            console.log("this shit works");
+
+        };
+        webSocket.onmessage = function (event) {
+            var data = JSON.parse(event.data);
+
+            username = data.username;
+
+            message = data.message;
+
+            addToConversation(username + ": " + message, username)
+
+
+        };
+        webSocket.onclose = function (event) {
+
+
+        };
+
+
+    } else {
+        alert("We're sorry, your browser does not support websockets");
+    }
+
+
+
+    $("form").submit(function (e) {
+        e.preventDefault();
+        message = preventJSInjection($("#mess").val());
+        addToConversation("Me: " + message, "me");
+        send();
+        $("#mess").val("");
+    });
+
+}
+)
