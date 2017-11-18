@@ -29,7 +29,20 @@ public class LogEntryRepositoryMySQL implements LogEntryRepository{
     
     @Override
     public List<LogEntry> getAllFromDataBase(){
-        return null;
+        try(Connection con = MySQLConnection.getConnection();
+            PreparedStatement prep = con.prepareStatement(GET_ALL_FROM_STATEMENT);
+            ResultSet rs = prep.executeQuery())
+        {
+            List<LogEntry> logs = new ArrayList<>();
+            
+            
+            return logs;
+        }
+        catch (SQLException ex)
+        {
+            throw new DitchDiscordException("Unable to get logs from database.", ex);
+        }
+    }
 //        try(Connection conn = MySQLConnection.getConnection();
 //            PreparedStatement stmt = conn.prepareStatement(GET_ALL_FROM_STATEMENT); 
 //            ResultSet res = stmt.executeQuery()){
