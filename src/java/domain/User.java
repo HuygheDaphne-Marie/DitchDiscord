@@ -26,6 +26,10 @@ public class User
         this.password = password;
         // this.profielfoto = profielfoto;
     }
+    
+//    public User(int id, String name, String password) {
+//        this(-1, name, password, null);
+//    }
 
     public User(int id, String name, String password) {
         this(id, name, password, null);
@@ -56,10 +60,4 @@ public class User
 //        return profielfoto;
 //    }
 
-
-
- 
- 
- 
-    
 }

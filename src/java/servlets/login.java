@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.berry.BCrypt;
 
 /**
  *
@@ -35,13 +36,28 @@ public class login extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         User u = Repositories.getUserRepository().getUserByUsername(username);
-        if(u.getPassword().equals(password)) {
-            request.getSession().setAttribute("username", u.getName());
-            request.getSession().setAttribute("password", u.getPassword());
-            response.sendRedirect("chatPage.html");
-        } else {
+        
+        if(u !=null)
+        {
+            if (BCrypt.checkpw(password, u.getPassword()))
+            {
+                System.out.println("It matches");
+                request.getSession().setAttribute("username", u.getName());
+                request.getSession().setAttribute("password", u.getPassword());
+                 response.sendRedirect("chatPage.html");
+            }
+             else
+                {
+             response.sendRedirect("index.html");
+                 }
+        }
+        else
+        {
             response.sendRedirect("index.html");
         }
+        
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

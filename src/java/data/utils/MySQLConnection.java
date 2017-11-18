@@ -8,8 +8,8 @@ import util.DitchDiscordException;
 
 public class MySQLConnection {
     private static final String URL = "jdbc:mysql://localhost/ditchdiscord";
-    private static final String USR = "root";
-    private static final String PWD = "";
+    private static final String USR = "ditchAdmin";
+    private static final String PWD = "d33z_nu7z";
     
     static {
         try {
