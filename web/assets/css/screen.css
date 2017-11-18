@@ -58,3 +58,15 @@ footer {
 #user-options {
   margin-top: 4rem;
 }
+
+.other{
+    text-align:right;
+}
+
+.server{
+    text-align:center;
+}
+
+.me{
+    text-align:left;
+}

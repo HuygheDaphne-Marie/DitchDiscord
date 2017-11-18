@@ -27,11 +27,12 @@
   <main>
     <div class="row">
       <div class="col s4 offset-s1">
-        <ul class="collection">
+        <ul id="userlist" class="collection">
+          <!-- TODO: add this dynamically from db -->
           <li class="collection-item avatar">
             <img src="https://vintage.ponychan.net/chan/files/src/131999656437.png" alt="profilePicture" class="circle">
             <span class="title">_USERNAME_</span>
-            <a href="#!" class="secondary-content" data-userId="_USER_ID_"><i class="material-icons red-text">delete</i></a>
+            <a href="deleteUser?id=_USER_ID_" class="secondary-content"><i class="material-icons red-text">delete</i></a>
           </li>
         </ul>
       </div>
