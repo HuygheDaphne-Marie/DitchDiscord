@@ -31,6 +31,17 @@ public class User
         this(-1, name, password, null);
     }
 
+    public User(int id, String name, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+    }
+
+    
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -43,6 +54,7 @@ public class User
         return profielfoto;
     }
 
+<<<<<<< HEAD
     public int getId() {
         return id;
     }
@@ -50,5 +62,9 @@ public class User
     public void setId(int id) {
         this.id = id;
     }
+=======
+
+
+>>>>>>> master
  
 }
