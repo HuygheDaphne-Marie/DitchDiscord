@@ -13,7 +13,7 @@ import util.DitchDiscordException;
 
 public class LogEntryRepositoryMySQL implements LogEntryRepository{
     private static final String ADD_TO_THE_DATABASE = "INSERT INTO log(logMessage) VALUES(?)";
-    private static final String GET_ALL_FROM_STATEMENT = "SELECT * FROM log ORDER BY timestamp";
+    private static final String GET_ALL_FROM_STATEMENT = "SELECT * FROM log ORDER BY time DESC";
 
     
     @Override
@@ -29,34 +29,21 @@ public class LogEntryRepositoryMySQL implements LogEntryRepository{
     
     @Override
     public List<LogEntry> getAllFromDataBase(){
-        try(Connection con = MySQLConnection.getConnection();
-            PreparedStatement prep = con.prepareStatement(GET_ALL_FROM_STATEMENT);
-            ResultSet rs = prep.executeQuery())
-        {
-            List<LogEntry> logs = new ArrayList<>();
-            
-            
-            return logs;
+        try(Connection conn = MySQLConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(GET_ALL_FROM_STATEMENT); 
+            ResultSet res = stmt.executeQuery()){
+            List<LogEntry> logList = new ArrayList();
+            while(res.next()){
+                int id = res.getInt("id");
+                String date = res.getDate("time").toString();
+                String time = res.getTime("time").toString();
+                String message = res.getString("logMessage");
+                LogEntry log = new LogEntry(message, id, date+" "+time);
+                logList.add(log);
+            }
+            return logList;
+        }catch(SQLException ex){
+            throw new DitchDiscordException("Couldn't retrieve the logging entry from the database", ex);
         }
-        catch (SQLException ex)
-        {
-            throw new DitchDiscordException("Unable to get logs from database.", ex);
-        }
-    }
-//        try(Connection conn = MySQLConnection.getConnection();
-//            PreparedStatement stmt = conn.prepareStatement(GET_ALL_FROM_STATEMENT); 
-//            ResultSet res = stmt.executeQuery()){
-//            List<LogEntry> logList = new ArrayList();
-//            while(res.next()){
-//                int id = res.getInt("id");
-//                long timeStamp = res.getLong("time");
-//                String message = res.getString("logMessage");
-//                LogEntry log = new LogEntry(timeStamp, message, id);
-//                logList.add(log);
-//            }
-//            return logList;
-//        }catch(SQLException ex){
-//            throw new DitchDiscordException("Couldn't retrieve the logging entry from the database", ex);
-//        }
     }
 }
