@@ -1,0 +1,11 @@
+.user-view {
+  margin-top: 2rem;
+}
+
+.user-view img {
+  width:100%;
+}
+
+#showMessages {
+  height: 45vh;
+}
