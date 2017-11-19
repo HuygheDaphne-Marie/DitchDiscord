@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import data.Repositories;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -46,16 +47,21 @@ public class FileUploadServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
         // Create path components to save the file
         final String path = "C:\\Users\\verwa\\OneDrive\\Documents\\DitchDiscord\\web\\assets\\images"; //verander naar eigen hardgecodeerd pad om te testen. op server gaat dit geen prob zijn
         final Part filePart = request.getPart("file");
         final String fileName=request.getParameter("username")+".png";
         
+        final String pathfile = path+"/"+fileName;
 
         OutputStream out = null;
         InputStream filecontent = null;
         final PrintWriter writer = response.getWriter();
+        
+        
+        Repositories.getUserRepository().AddPicture(pathfile,httpRequest.getSession().getAttribute(login.SESS_USER));
 
         try {
             out = new FileOutputStream(new File(path + File.separator
@@ -92,6 +98,7 @@ public class FileUploadServlet extends HttpServlet {
             }
         }
     }
+ 
 
     private String getFileName(final Part part) {
         final String partHeader = part.getHeader("content-disposition");
@@ -104,6 +111,9 @@ public class FileUploadServlet extends HttpServlet {
         }
         return null;
     }
+    
+   
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

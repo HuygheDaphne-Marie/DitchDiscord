@@ -23,7 +23,7 @@ import utils.VerifyRecaptcha;
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class login extends HttpServlet {
 
-    public static final String SESS_USER = "USER";
+    public static  String SESS_USER="";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,9 +43,11 @@ public class login extends HttpServlet {
         boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
         User u = Repositories.getUserRepository().getUserByUsername(username);
 
+     if (verify)
+     {
+      System.out.println("Either user name or password is wrong.");
         if (u != null) {
             if (BCrypt.checkpw(password, u.getPassword()) && verify) {
-                System.out.println("It matches");
                 request.getSession().setAttribute("username", u.getName());
                 request.getSession().setAttribute("password", u.getPassword());
                 request.getSession().setAttribute(SESS_USER, u.getName());
@@ -56,11 +58,13 @@ public class login extends HttpServlet {
         } else {
             response.sendRedirect("index.html");
         }
-        if (verify) {
-            System.out.println("Either user name or password is wrong.");
-        } else {
-            System.out.println("You missed the Captcha.");
-        }
+     } else
+     {
+       response.sendRedirect("index.html");
+       System.out.println("You missed the Captcha.");  
+     }
+        
+   
 
     }
 

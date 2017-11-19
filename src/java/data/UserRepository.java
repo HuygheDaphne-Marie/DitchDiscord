@@ -19,4 +19,5 @@ public interface UserRepository {
     public User getUserById(int id);
     public void AddUser(User u);
     public void deleteUser(User u);
+    public void AddPicture(String path,String name); 
 }

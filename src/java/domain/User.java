@@ -5,7 +5,7 @@
  */
 package domain;
 
-import java.sql.Blob;
+
 import static java.sql.Types.BLOB;
 
 
@@ -18,9 +18,9 @@ public class User
  private int id;
  private String name;
  private String password;
- // private Blob profielfoto;
+ private String profielfoto;
 
-    public User(int id, String name, String password, Blob profielfoto) {
+    public User(int id, String name, String password, String profielfoto) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -56,8 +56,8 @@ public class User
         return password;
     }
 
-//    public Blob getProfielfoto() {
-//        return profielfoto;
-//    }
+  public String getProfielfoto() {
+        return profielfoto;
+   }
 
 }

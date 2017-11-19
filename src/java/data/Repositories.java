@@ -12,6 +12,7 @@ package data;
 public class Repositories {
     private final static UserRepository USER_REPO = new UserRepositorySQL();
     private final static LogEntryRepository LOG_REPO = new LogEntryRepositoryMySQL();
+    private final static ComplaintsRepository COMPLAIN_REPO= new ComplaintsMySQL();
 
     public static UserRepository getUserRepository() {
         return USER_REPO;
@@ -20,4 +21,9 @@ public class Repositories {
     public static LogEntryRepository getLogEntryRepository(){
         return LOG_REPO;
     }
+       public static ComplaintsRepository getComplaintsRepository(){
+        return COMPLAIN_REPO;
+    }
+
+
 }

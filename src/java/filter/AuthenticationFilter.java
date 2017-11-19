@@ -46,6 +46,7 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
            if (httpRequest.getSession().getAttribute(login.SESS_USER) == null)
         {
+            System.out.println(login.SESS_USER);
             httpResponse.sendRedirect("index.html");
         }
 

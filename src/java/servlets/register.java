@@ -43,8 +43,13 @@ public class register extends HttpServlet {
             {
                 String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
                 Repositories.getUserRepository().AddUser(new User(username, hashed));
+               response.sendRedirect("index.html");
             }
-            response.sendRedirect("index.html");
+            else
+            {
+                 response.sendRedirect("register.html");
+            }
+          
         } else
         {
             response.sendRedirect("register.html");
