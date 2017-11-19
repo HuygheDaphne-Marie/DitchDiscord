@@ -52,7 +52,7 @@ public class FileUploadServlet extends HttpServlet {
         // Create path components to save the file
         final String path = "C:\\Users\\verwa\\OneDrive\\Documents\\DitchDiscord\\web\\assets\\images"; //verander naar eigen hardgecodeerd pad om te testen. op server gaat dit geen prob zijn
         final Part filePart = request.getPart("file");
-        final String fileName=request.getParameter("username")+".png";
+        final String fileName=(String)request.getSession().getAttribute("username")+".png";
         
         final String pathfile = path+"/"+fileName;
 

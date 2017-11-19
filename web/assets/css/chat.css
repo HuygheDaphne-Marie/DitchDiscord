@@ -8,4 +8,9 @@
 
 #showMessages {
   height: 45vh;
+  padding-bottom: 2rem;
+}
+
+#fileupl .btn{
+  width: auto;
 }
