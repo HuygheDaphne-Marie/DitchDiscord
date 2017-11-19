@@ -2,13 +2,15 @@ var webSocket;
 var convo = $("#convo ul");
 
 var message;
-var username;
+var username = "nothing";
+var init=true;
 
-function send() {
+function send(user,mess) {
 
-    message = preventJSInjection($("#mess").val());
+    message = mess;
+    username = user;
     var jsondata = {
-
+        "username": username,
         "message": message
     };
     var package = JSON.stringify(jsondata);
@@ -26,8 +28,7 @@ function addToConversation(message, src) {
     }
 }
 
-
-$(document).ready(function () {
+function openSocket() {
     if (window.WebSocket) {
         console.log('Your browser does support websockets!');
         webSocket = new WebSocket("ws://localhost:8080/DitchDiscord/echo"); //verander naar ip van server wanneer je remote wil connecten
@@ -35,17 +36,17 @@ $(document).ready(function () {
 
         webSocket.onopen = function (event) {
 
-            console.log("this shit works");
+
+            
+            send(username,username+" connected");
 
         };
         webSocket.onmessage = function (event) {
             var data = JSON.parse(event.data);
 
-            username = data.username;
+            
 
-            message = data.message;
-
-            addToConversation(username + ": " + message, username)
+            addToConversation(data.username + ": " + data.message, data.username)
 
 
         };
@@ -58,6 +59,18 @@ $(document).ready(function () {
     } else {
         alert("We're sorry, your browser does not support websockets");
     }
+}
+
+
+$(document).ajaxComplete(function () {
+    if(init){
+        username=usernameAJAX;
+        openSocket();
+        init=false;
+    }
+    
+    
+    
 
 
 
@@ -65,7 +78,7 @@ $(document).ready(function () {
         e.preventDefault();
         message = preventJSInjection($("#mess").val());
         addToConversation("Me: " + message, "me");
-        send();
+        send(username,message);
         $("#mess").val("");
     });
 
