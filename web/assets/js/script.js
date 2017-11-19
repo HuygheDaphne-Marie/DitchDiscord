@@ -23,9 +23,9 @@ $(document).ready(function () {
 
   $("#passwordCheck").on("change", checkIfPasswordsMatch);
   $("#complaintform").on("submit",function(e){
-        e.preventdefault();
-        var test = preventJSInjection($("#complaint").val());
-        console.log("test, " +test);
-        console.log($("input#complaint").val());   
+        e.preventDefault();
+        preventJSInjection($("#complaint").val());
+        console.log(preventJSInjection($("#complaint").val()));
+        
   });
-})
+});
