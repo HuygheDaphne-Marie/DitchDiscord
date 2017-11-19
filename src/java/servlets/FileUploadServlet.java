@@ -61,7 +61,7 @@ public class FileUploadServlet extends HttpServlet {
         final PrintWriter writer = response.getWriter();
         
         
-        Repositories.getUserRepository().AddPicture(pathfile,httpRequest.getSession().getAttribute(login.SESS_USER));
+        Repositories.getUserRepository().AddPicture(pathfile, (String) httpRequest.getSession().getAttribute(login.SESS_USER));
 
         try {
             out = new FileOutputStream(new File(path + File.separator
