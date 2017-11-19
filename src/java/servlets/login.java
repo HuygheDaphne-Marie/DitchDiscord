@@ -21,6 +21,7 @@ import com.berry.BCrypt;
  */
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class login extends HttpServlet {
+     public static final String SESS_USER = "USER";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,6 +45,7 @@ public class login extends HttpServlet {
                 System.out.println("It matches");
                 request.getSession().setAttribute("username", u.getName());
                 request.getSession().setAttribute("password", u.getPassword());
+                 request.getSession().setAttribute(SESS_USER, u.getName());
                  response.sendRedirect("chatPage.html");
             }
              else
