@@ -11,7 +11,7 @@ public class LogEntry {
         this.message = message;
         this.id = id;
     }
-
+    
     public LogEntry(String message) {
         this(message, -1);
     }
@@ -31,6 +31,4 @@ public class LogEntry {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
 }
