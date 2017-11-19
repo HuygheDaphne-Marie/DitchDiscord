@@ -9,8 +9,7 @@
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
   <link rel="stylesheet" href="assets/css/screen.css">
-  <title>DitchDiscord</title>
-  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <title>Ditch Discord</title>
 </head>
 
 <body>
@@ -18,33 +17,43 @@
     <nav class="blue darken-2">
       <div class="nav-wrapper">
         <a href="index.html" class="brand-logo">Logo</a>
+        <ul class="right">
+          <li id="user">_USERNAME_</li>
+          <li><i class="material-icons right">account_circle</i></li>
+        </ul>
       </div>
     </nav>
   </header>
 
   <main>
-    <form action="loginAdmin" class="accented">
+    <form action="complaint" method="post" class="accented">
       <div class="row">
         <div class="col s4 offset-s4">
           <div class="input-field">
-            <input type="text" id="username" name="username" />
-            <label for="username" class="active">Username</label>
+            <select required>
+              <option value="security">Security</option>
+              <option value="user experience">User experience</option>
+              <option value="comunity">Comunity</option>
+              <option value="Other">Other</option>
+            </select>
+            <label>Please select the nature of your complaint:</label>
           </div>
-
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s4 offset-s4">
           <div class="input-field">
-            <input type="password" id="password" name="password" />
-            <label for="password" class="active">Password</label>
+            <input type="text" id="complaint" name="complaint" required/>
+            <label for="complaint" class="active">Please write your complaint here:</label>
           </div>
-          <div class="g-recaptcha" data-sitekey="6Lfj9DUUAAAAAPqaKHSyBg1zEbF8AkuNjuSQCuQm"></div>
         </div>
       </div>
       <div class="row">
         <div class="col s2 offset-s5">
-          <button class="btn btn-large waves-effect blue darken-2">Log in</button>
+          <input type="button" id="send" value="send" class="btn btn-large waves-effect blue darken-2" />
         </div>
       </div>
     </form>
-    </div>
   </main>
 
   <footer class="page-footer blue darken-2">
@@ -54,6 +63,7 @@
   <script type="text/javascript" src="assets/js/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
   <script type="text/javascript" src="assets/js/script.js"></script>
+  <script type="text/javascript" src="assets/js/getUsername.js"></script>
 </body>
 
 </html>
