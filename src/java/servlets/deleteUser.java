@@ -28,7 +28,7 @@ public class deleteUser extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         User u = Repositories.getUserRepository().getUserById(id);
         Repositories.getUserRepository().deleteUser(u);
-        response.sendRedirect("adminsistratorPage.html");
+        response.sendRedirect("AdministratorPage.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
