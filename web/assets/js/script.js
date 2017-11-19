@@ -22,5 +22,10 @@ $(document).ready(function () {
   $('select').material_select();
 
   $("#passwordCheck").on("change", checkIfPasswordsMatch);
-
+  $("#complaintform").on("submit",function(e){
+        e.preventdefault();
+        var test = preventJSInjection($("#complaint").val());
+        console.log("test, " +test);
+        console.log($("input#complaint").val());   
+  });
 })
