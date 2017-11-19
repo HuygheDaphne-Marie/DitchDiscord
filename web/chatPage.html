@@ -35,19 +35,34 @@
                         <div class="row">
                             <div class="col s8 offset-s2">
                                 <img id="profile" style="width:100%;" class="circle" src="https://vintage.ponychan.net/chan/files/src/131999656437.png">
-                                <form id="fileupl" method="POST" action="upload" enctype="multipart/form-data" >
-                                    
-                                    <input type="file" name="file" id="file" /> 
-                                    <input type="hidden" name="username" value="0" id="usrname">
-                       
-                                    <input type="submit" value="Upload" name="upload" id="upload" />
-                                </form>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col s4 offset-s4">
                                 <p class="white-text center-align">_USERNAME_</p>
                             </div>
+                        </div>
+                        <div class="row">
+                          <div class="col s10 offset-s1">
+                            <form id="fileupl" method="POST" action="upload" enctype="multipart/form-data" >
+                              <div class="file-field input-field">
+                                <div class="btn white blue-text text-darken-2">
+                                  <span>Image</span>
+                                  <input type="file" name="file" id="file">
+                                </div>
+                                <div class="file-path-wrapper">
+                                  <input class="file-path validate white-text" type="text">
+                                </div>
+                              </div>
+
+                                <input type="submit" value="Upload" name="upload" id="upload" class="btn white blue-text text-darken-2"/>
+                            </form>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col s4 offset-s3">
+                            <a href="logout" class="btn btn-large red white-text">Logout</a>
+                          </div>
                         </div>
                     </div>
                 </li>
@@ -78,7 +93,7 @@
 
 
         <footer class="page-footer blue darken-2">
-            <p class="white-text">Copyright (c) 2017 Copyright Holder All Rights Reserved.</p>
+          <p class="white-text">Copyright (c) 2017 Copyright Holder All Rights Reserved.</p>
         </footer>
 
         <script type="text/javascript" src="assets/js/jquery-3.2.1.min.js"></script>

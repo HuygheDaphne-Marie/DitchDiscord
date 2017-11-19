@@ -66,13 +66,13 @@ $(document).ajaxComplete(function () {
     if (init) {
         username = usernameAJAX;
         $("#usrname").attr("value", username);
-        $("#profile").attr("src", "assets/images/" + username + ".png");//need fix. displays image enkel na een paar keer reladen
+        $("#profile").attr("src", "assets/images/" + username + ".png");//need fix. displays image enkel na een paar keer reladen AJAX call fix
         openSocket();
         init = false;
     }
 
 
-    
+
 
 
 
@@ -88,5 +88,3 @@ $(document).ajaxComplete(function () {
 
 }
 )
-
-
