@@ -23,7 +23,6 @@
         <ul class="right">
           <li id="user">Admin</li>
           <li><i class="material-icons right">account_circle</i></li>
-          <!-- TODO: add username username here if logged in & otherwise 'sign in' button -->
         </ul>
       </div>
     </nav>
@@ -55,7 +54,7 @@
         <ul id="loglist" class="collection">
         <% for(LogEntry l : Repositories.getLogEntryRepository().getAllFromDataBase()) { %>
             <li class="collection-item avatar">
-              <% 
+              <%
                   String s = String.format("<span class='title'>log #%05d <span class='grey-text'>%s</span></span><p>%s</p>", l.getId(), l.getTimeStamp(), l.getMessage());
                   out.print(s);
               %>

@@ -19,7 +19,8 @@ function passwordsMatch() {
 $(document).ready(function () {
   // Init's
   $(".button-collapse").sideNav();
+  $('select').material_select();
 
   $("#passwordCheck").on("change", checkIfPasswordsMatch);
-  
+
 })

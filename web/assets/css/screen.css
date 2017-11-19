@@ -18,6 +18,10 @@ form.accented input:focus:not([readonly])+label {
   color: var(--accent-color);
 }
 
+form.accented .dropdown-content li span {
+  color: var(--accent-color);
+}
+
 /*!! Page !!*/
 
 body {
