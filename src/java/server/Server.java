@@ -69,6 +69,7 @@ public class Server {
         } else {
             message = json.getString("message");
             jsonMessage = String.format("{\"username\":\"%s\",\"message\":\"%s\"}", username, message);
+            System.out.println(username+": "+message);
             for (Session out : session.getOpenSessions()) {
                 if (out != session) {
                     sendToSession(out, jsonMessage);

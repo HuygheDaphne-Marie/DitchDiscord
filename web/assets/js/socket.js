@@ -3,9 +3,9 @@ var convo = $("#convo ul");
 
 var message;
 var username = "nothing";
-var init=true;
+var init = true;
 
-function send(user,mess) {
+function send(user, mess) {
 
     message = mess;
     username = user;
@@ -37,14 +37,14 @@ function openSocket() {
         webSocket.onopen = function (event) {
 
 
-            
-            send(username,username+" connected");
+
+            send(username, username + " connected");
 
         };
         webSocket.onmessage = function (event) {
             var data = JSON.parse(event.data);
 
-            
+
 
             addToConversation(data.username + ": " + data.message, data.username)
 
@@ -63,24 +63,30 @@ function openSocket() {
 
 
 $(document).ajaxComplete(function () {
-    if(init){
-        username=usernameAJAX;
+    if (init) {
+        username = usernameAJAX;
+        $("#usrname").attr("value", username);
+        $("#profile").attr("src", "assets/images/" + username + ".png");//need fix. displays image enkel na een paar keer reladen
         openSocket();
-        init=false;
+        init = false;
     }
-    
-    
+
+
     
 
 
 
-    $("form").submit(function (e) {
+    $("#chat").submit(function (e) {
         e.preventDefault();
         message = preventJSInjection($("#mess").val());
         addToConversation("Me: " + message, "me");
-        send(username,message);
+        send(username, message);
         $("#mess").val("");
     });
 
+
+
 }
 )
+
+
