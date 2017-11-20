@@ -48,7 +48,7 @@ public class AuthenticationFilter implements Filter {
 
            if (username == null)
         {
-            httpResponse.sendRedirect("index.html");
+            request.getRequestDispatcher("index.html").forward(request, response);
         }
 
     }    
