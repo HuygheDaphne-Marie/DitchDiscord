@@ -23,7 +23,7 @@ import utils.VerifyRecaptcha;
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class login extends HttpServlet {
 
-    public static  String SESS_USER="";
+    public static final String SESS_USER="";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
