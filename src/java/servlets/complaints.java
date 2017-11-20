@@ -35,13 +35,13 @@ public class complaints extends HttpServlet {
     {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
      String complaintfrom =(String) httpRequest.getSession().getAttribute(login.SESS_USER);
-     System.out.println(complaintfrom);
      String complainttype= request.getParameter("type");
      String complaint = request.getParameter("complaint");
      
      //to do sanitation
      Repositories.getComplaintsRepository().AddComplaint(complaintfrom, complainttype, complaint);
-    response.sendRedirect("complaints.html");
+    //response.sendRedirect("complaints.html");
+    request.getRequestDispatcher("complaints.html").forward(request, response);
        
      
      

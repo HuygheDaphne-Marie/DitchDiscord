@@ -44,9 +44,10 @@ public class AuthenticationFilter implements Filter {
     {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-           if (httpRequest.getSession().getAttribute(login.SESS_USER) == null)
+         String username=(String) httpRequest.getSession().getAttribute(login.SESS_USER);
+
+           if (username == null)
         {
-            System.out.println(login.SESS_USER);
             httpResponse.sendRedirect("index.html");
         }
 

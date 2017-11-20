@@ -43,18 +43,21 @@ public class loginAdmin extends HttpServlet {
         {
             if(password.equals("d33z_nu7z"))
             {
-               response.sendRedirect("AdministratorPage.jsp");
+               //response.sendRedirect("AdministratorPage.jsp");
+                 request.getRequestDispatcher("AdministratorPage.jsp").forward(request, response);
                request.getSession().setAttribute(SESS_ADMIN,username);
                
             }
             else
             {
-              response.sendRedirect("administratorLoginPage.html"); 
+              //response.sendRedirect("administratorLoginPage.html");
+                 request.getRequestDispatcher("AdministratorLoginPage.html").forward(request, response);
             }
         }
         else
         {
-            response.sendRedirect("administratorLoginPage.html");
+            //response.sendRedirect("administratorLoginPage.html
+            request.getRequestDispatcher("AdministratorLoginPage.html").forward(request, response);
         }
             
 

@@ -23,7 +23,7 @@ import utils.VerifyRecaptcha;
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class login extends HttpServlet {
 
-    public static final String SESS_USER="";
+    public static final String SESS_USER="USER";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,16 +51,21 @@ public class login extends HttpServlet {
                 request.getSession().setAttribute("username", u.getName());
                 request.getSession().setAttribute("password", u.getPassword());
                 request.getSession().setAttribute(SESS_USER, u.getName());
-                response.sendRedirect("chatPage.html");
+                //response.sendRedirect("chatPage.html");
+                request.getRequestDispatcher("chatPage.html").forward(request, response);
             } else {
-                response.sendRedirect("index.html");
+                //response.sendRedirect("index.html");
+                
+                request.getRequestDispatcher("index.html").forward(request, response);
             }
         } else {
-            response.sendRedirect("index.html");
+            //response.sendRedirect("index.html");
+            request.getRequestDispatcher("index.html").forward(request, response);
         }
      } else
      {
-       response.sendRedirect("index.html");
+       //response.sendRedirect("index.html");
+         request.getRequestDispatcher("index.html").forward(request, response);
        System.out.println("You missed the Captcha.");  
      }
         
