@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import utils.VerifyRecaptcha;
 
 /**
  *
@@ -36,8 +37,13 @@ public class register extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String passwordCheck = request.getParameter("passwordCheck");
+        username=username.replaceAll("<","&lt").replaceAll(">","&gt");
         
-        if(password.equals(passwordCheck))
+       String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+        //System.out.println(gRecaptchaResponse);
+        boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
+        
+        if(password.equals(passwordCheck)&&verify)
         {
             if(Repositories.getUserRepository().getUserByUsername(username) == null) 
             {

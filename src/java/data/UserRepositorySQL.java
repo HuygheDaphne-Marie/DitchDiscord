@@ -146,7 +146,7 @@ public class UserRepositorySQL implements UserRepository {
             stmt.setString(2,name);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            throw new DitchDiscordException("Couldn't add user", ex);
+            throw new DitchDiscordException("Couldn't add picture", ex);
         }
 
     }

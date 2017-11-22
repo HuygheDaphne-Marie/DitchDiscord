@@ -2,7 +2,7 @@ var webSocket;
 var convo = $("#convo ul");
 
 var message;
-var username = "nothing";
+var username;
 var init = true;
 
 function send(user, mess) {
@@ -19,11 +19,11 @@ function send(user, mess) {
 }
 
 function addToConversation(message, src) {
-    if (src === "me") {
-        convo.append("<li class=" + src + ">" + message + "</li>");
-    } else if (src === "server") {
-        convo.append("<li class=" + src + ">" + message + "</li>");
+    if (src === username) {
+        convo.append("<li class='me'>" + message + "</li>");
+
     } else {
+
         convo.append("<li class='other'>" + message + "</li>");
     }
 }
@@ -38,15 +38,21 @@ function openSocket() {
 
 
 
-            send(username, username + " connected");
+            //send(username, username + " connected");
 
         };
         webSocket.onmessage = function (event) {
             var data = JSON.parse(event.data);
+            console.log(data);
+            if (init) {
+                username = data.username;
+                init = false;
+            }
 
-
-
-            addToConversation(data.username + ": " + data.message, data.username)
+            addToConversation(data.username + ": " + data.message, data.username);
+            $("#user").html(username);
+            $("#usr").html(username);
+            $("#profile").attr("src", "assets/images/" + username + ".png");
 
 
         };
@@ -62,15 +68,15 @@ function openSocket() {
 }
 
 
-$(document).ajaxComplete(function () {
-    if (init) {
-        username = usernameAJAX;
-        $("#usrname").attr("value", username);
-        $("#profile").attr("src", "assets/images/" + username + ".png");//need fix. displays image enkel na een paar keer reladen AJAX call fix
-        openSocket();
-        init = false;
-    }
+$(document).ready(function () {
+    openSocket();
 
+    //need fix. displays image enkel na een paar keer reladen AJAX call fix
+
+
+
+
+    
 
 
 
@@ -79,9 +85,17 @@ $(document).ajaxComplete(function () {
     $("#chat").submit(function (e) {
         e.preventDefault();
         message = preventJSInjection($("#mess").val());
-        addToConversation("Me: " + message, "me");
-        send(username, message);
-        $("#mess").val("");
+        setTimeout(function () {
+            if (message.replace(/\s+/g, "") !== "" && message.length<100) {
+
+                addToConversation(username + ": " + message, username);
+
+                send(username, message);
+                $("#mess").val("");
+            }
+        }, 500)
+        
+        
     });
 
 

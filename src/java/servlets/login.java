@@ -24,6 +24,7 @@ import utils.VerifyRecaptcha;
 public class login extends HttpServlet {
 
     public static final String SESS_USER="USER";
+    public static String user;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,9 +49,11 @@ public class login extends HttpServlet {
       System.out.println("Either user name or password is wrong.");
         if (u != null) {
             if (BCrypt.checkpw(password, u.getPassword()) && verify) {
+                
                 request.getSession().setAttribute("username", u.getName());
                 request.getSession().setAttribute("password", u.getPassword());
                 request.getSession().setAttribute(SESS_USER, u.getName());
+                user=(String)request.getSession().getAttribute(SESS_USER);
                 //response.sendRedirect("chatPage.html");
                 request.getRequestDispatcher("chatPage.html").forward(request, response);
             } else {
@@ -72,6 +75,7 @@ public class login extends HttpServlet {
    
 
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
