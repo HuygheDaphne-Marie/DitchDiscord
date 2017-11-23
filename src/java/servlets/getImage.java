@@ -5,23 +5,23 @@
  */
 package servlets;
 
-import com.berry.BCrypt;
 import data.Repositories;
 import domain.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import utils.VerifyRecaptcha;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Henri
  */
-@WebServlet(name = "register", urlPatterns = {"/register"})
-public class register extends HttpServlet {
+@WebServlet(name = "getImage", urlPatterns = {"/getImage"})
+public class getImage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,31 +34,13 @@ public class register extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String passwordCheck = request.getParameter("passwordCheck");
-        username=username.replaceAll("<","&lt").replaceAll(">","&gt");
-        
-       String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
-        //System.out.println(gRecaptchaResponse);
-        boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
-        
-        if(password.equals(passwordCheck)&&verify)
-        {
-            if(Repositories.getUserRepository().getUserByUsername(username) == null) 
-            {
-                String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
-                Repositories.getUserRepository().AddUser(new User(username, hashed));
-               response.sendRedirect("index.html");
-            }
-            else
-            {
-                 response.sendRedirect("register.html");
-            }
-          
-        } else
-        {
-            response.sendRedirect("register.html");
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        if(session.getAttribute("username") != null) {
+            User u = Repositories.getUserRepository().getUserByUsername((String)session.getAttribute("username"));
+            response.getWriter().write(u.getProfielfoto());
+        } else {
+            response.getWriter().write("noImage");
         }
     }
 

@@ -26,11 +26,11 @@
   </header>
 
   <main>
-    <form action="complaint" method="post" class="accented">
+    <form method="POST" action="complaints"  class="accented" id="complaintform">
       <div class="row">
         <div class="col s4 offset-s4">
           <div class="input-field">
-            <select required>
+            <select required name="type">
               <option value="security">Security</option>
               <option value="user experience">User experience</option>
               <option value="comunity">Comunity</option>
@@ -50,7 +50,7 @@
       </div>
       <div class="row">
         <div class="col s2 offset-s5">
-          <input type="button" id="send" value="send" class="btn btn-large waves-effect blue darken-2" />
+          <input type="submit" id="send" value="Send"/>
         </div>
       </div>
     </form>

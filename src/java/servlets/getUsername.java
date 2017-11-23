@@ -37,7 +37,8 @@ public class getUsername extends HttpServlet {
         if(session.getAttribute("username") != null) {
             response.getWriter().write((String)session.getAttribute("username"));
         } else {
-            request.getRequestDispatcher("index.html");
+            //request.getRequestDispatcher("index.html");
+             request.getRequestDispatcher("index.html").forward(request, response);
         }
     }
 

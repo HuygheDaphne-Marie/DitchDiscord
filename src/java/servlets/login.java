@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.berry.BCrypt;
+import utils.VerifyRecaptcha;
 
 /**
  *
@@ -21,6 +22,9 @@ import com.berry.BCrypt;
  */
 @WebServlet(name = "login", urlPatterns = {"/login"})
 public class login extends HttpServlet {
+
+    public static final String SESS_USER="USER";
+    public static String user;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,30 +39,43 @@ public class login extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+        System.out.println(gRecaptchaResponse);
+        boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
         User u = Repositories.getUserRepository().getUserByUsername(username);
-        
-        if(u !=null)
-        {
-            if (BCrypt.checkpw(password, u.getPassword()))
-            {
-                System.out.println("It matches");
+
+     if (verify)
+     {
+      System.out.println("Either user name or password is wrong.");
+        if (u != null) {
+            if (BCrypt.checkpw(password, u.getPassword()) && verify) {
+                
                 request.getSession().setAttribute("username", u.getName());
                 request.getSession().setAttribute("password", u.getPassword());
-                 response.sendRedirect("chatPage.html");
+                request.getSession().setAttribute(SESS_USER, u.getName());
+                user=(String)request.getSession().getAttribute(SESS_USER);
+                //response.sendRedirect("chatPage.html");
+                request.getRequestDispatcher("chatPage.html").forward(request, response);
+            } else {
+                //response.sendRedirect("index.html");
+                
+                request.getRequestDispatcher("index.html").forward(request, response);
             }
-             else
-                {
-             response.sendRedirect("index.html");
-                 }
+        } else {
+            //response.sendRedirect("index.html");
+            request.getRequestDispatcher("index.html").forward(request, response);
         }
-        else
-        {
-            response.sendRedirect("index.html");
-        }
+     } else
+     {
+       //response.sendRedirect("index.html");
+         request.getRequestDispatcher("index.html").forward(request, response);
+       System.out.println("You missed the Captcha.");  
+     }
         
-        
-        
+   
+
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
