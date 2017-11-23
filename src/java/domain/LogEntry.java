@@ -35,13 +35,9 @@ public class LogEntry {
     public void setId(int id) {
         this.id = id;
     }
-<<<<<<< HEAD
-=======
 
     public String getTimeStamp() {
         return timeStamp;
     }
-    
-    
->>>>>>> master
+
 }
