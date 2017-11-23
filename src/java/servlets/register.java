@@ -37,7 +37,7 @@ public class register extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String passwordCheck = request.getParameter("passwordCheck");
-        username=username.replaceAll("<","&lt").replaceAll(">","&gt");
+        username=username.replaceAll("<","&lt").replaceAll(">","&gt").replaceAll("/", " ").replace(".", "fu").replace("\\","plop100");
         
        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
         //System.out.println(gRecaptchaResponse);

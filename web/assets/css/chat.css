@@ -14,3 +14,10 @@
 #fileupl .btn{
   width: auto;
 }
+
+#convo {
+    
+    
+    height: 500px;
+    overflow: scroll;
+}

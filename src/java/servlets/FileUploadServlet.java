@@ -50,7 +50,7 @@ public class FileUploadServlet extends HttpServlet {
          HttpServletRequest httpRequest = (HttpServletRequest) request;
 
         // Create path components to save the file
-        final String path = "C:\\Users\\verwa\\OneDrive - Hogeschool West-Vlaanderen\\Semester 3\\Web Security and Honeypot\\DitchDiscord\\web\\assets\\images"; //verander naar eigen hardgecodeerd pad om te testen. op server gaat dit geen prob zijn
+        final String path = "C:\\glassfish-5.0\\glassfish5\\glassfish\\domains\\domain1\\applications\\DitchDiscordProject\\assets\\images"; //verander naar eigen hardgecodeerd pad om te testen. op server gaat dit geen prob zijn
         final Part filePart = request.getPart("file");
         final String fileName=(String)request.getSession().getAttribute("username")+".png";
         
