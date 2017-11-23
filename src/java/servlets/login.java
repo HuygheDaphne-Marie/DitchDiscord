@@ -24,7 +24,7 @@ import utils.VerifyRecaptcha;
 public class login extends HttpServlet {
 
     public static final String SESS_USER="USER";
-    public static String user;
+    public String user;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
