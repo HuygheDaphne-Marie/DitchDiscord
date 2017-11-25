@@ -26,52 +26,17 @@ public class Server {
 
     @OnOpen
     public void onOpen(Session newSession) {
-        //System.out.println(login.user);
 
-        username = login.user;
-        message = "connected";
-        jsonMessage = String.format("{\"username\":\"%s\",\"message\":\"%s\"}", username, message);
-
-        for (Session out : newSession.getOpenSessions()) {
-
-            sendToSession(out, jsonMessage);
-
-        }
-        
-        usersAndTheirSessions.forEach((s, u) -> {
-
-            if (username.equals(u)) {
-                
-                try {
-                    newSession.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                System.out.println("username already exists");
-            }
-
-        });
-        
         usersAndTheirSessions.put(newSession, username);
-        System.out.println(username + ": " + message);
 
     }
 
     @OnMessage
     public void onMessage(String bericht, Session session) {
         JsonObject json = Json.createReader(new StringReader(bericht)).readObject();
-        message = json.getString("message");
-        jsonMessage = String.format("{\"username\":\"%s\",\"message\":\"%s\"}", username, message);
-        //System.out.println(username+": "+message);
-        for (Session out : session.getOpenSessions()) {
-            if (out != session) {
-                sendToSession(out, jsonMessage);
-            }
+        username = json.getString("username");
 
-        }
-        //username = json.getString("username");
-
-        /*if (init) {
+        if (init) {
             usersAndTheirSessions.forEach((s, u) -> {
 
                 if (username.equals(u)) {
@@ -84,7 +49,7 @@ public class Server {
                 usersAndTheirSessions.put(session, username);
                 message = username + " connected";
                 jsonMessage = String.format("{\"username\":\"%s\",\"message\":\"%s\"}", "server", message);
-                //System.out.println(message);
+                System.out.println(message);
                 for (Session out : session.getOpenSessions()) {
                     if (out != session) {
                         sendToSession(out, jsonMessage);
@@ -105,7 +70,7 @@ public class Server {
         } else {
             message = json.getString("message");
             jsonMessage = String.format("{\"username\":\"%s\",\"message\":\"%s\"}", username, message);
-            //System.out.println(username+": "+message);
+            System.out.println(username + ": " + message);
             for (Session out : session.getOpenSessions()) {
                 if (out != session) {
                     sendToSession(out, jsonMessage);
@@ -113,23 +78,23 @@ public class Server {
 
             }
         }
-         */
+
     }
 
     @OnClose
     public void onClose(Session oldSession) {
-        //username = usersAndTheirSessions.get(oldSession);
-        message = "disconnected";
+        username = usersAndTheirSessions.get(oldSession);
+        message = username + " disconnected";
 
-        String json = String.format("{\"username\":\"%s\",\"message\":\"%s\"}", username, message);
+        String json = String.format("{\"username\":\"%s\",\"message\":\"%s\"}", "server", message);
 
         for (Session out : oldSession.getOpenSessions()) {
-            if (out != oldSession) {
+            if (out != oldSession && username != null) {
                 sendToSession(out, json);
             }
         }
         usersAndTheirSessions.remove(oldSession);
-        System.out.println(username + ": " + message);
+        System.out.println(message);
     }
 
     private void sendToSession(Session out, String message) {

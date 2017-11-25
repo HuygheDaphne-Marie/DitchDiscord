@@ -2,7 +2,7 @@ var webSocket;
 var convo = $("#convo ul");
 
 var message;
-var username;
+var username = "nothing";
 var init = true;
 
 function send(user, mess) {
@@ -19,40 +19,34 @@ function send(user, mess) {
 }
 
 function addToConversation(message, src) {
-    if (src === username) {
-        convo.append("<li class='me'>" + message + "</li>");
-
+    if (src === "me") {
+        convo.prepend("<li class=" + src + ">" + message + "</li>");
+    } else if (src === "server") {
+        convo.prepend("<li class=" + src + ">" + message + "</li>");
     } else {
-
-        convo.append("<li class='other'>" + message + "</li>");
+        convo.prepend("<li class='other'>" + message + "</li>");
     }
 }
 
 function openSocket() {
     if (window.WebSocket) {
         console.log('Your browser does support websockets!');
-        webSocket = new WebSocket("ws://localhost:8080/DitchDiscord/echo"); //verander naar ip van server wanneer je remote wil connecten
+        webSocket = new WebSocket("ws://192.168.30.14/echo"); //verander naar ip van server wanneer je remote wil connecten
 
 
         webSocket.onopen = function (event) {
 
 
 
-            //send(username, username + " connected");
+            send(username, username + " connected");
 
         };
         webSocket.onmessage = function (event) {
             var data = JSON.parse(event.data);
-            console.log(data);
-            if (init) {
-                username = data.username;
-                init = false;
-            }
 
-            addToConversation(data.username + ": " + data.message, data.username);
-            $("#user").html(username);
-            $("#usr").html(username);
-            $("#profile").attr("src", "assets/images/" + username + ".png");
+
+
+            addToConversation(data.username + ": " + data.message, data.username)
 
 
         };
@@ -68,15 +62,15 @@ function openSocket() {
 }
 
 
-$(document).ready(function () {
-    openSocket();
+$(document).ajaxComplete(function () {
+    if (init) {
+        username = usernameAJAX;
+        $("#usrname").attr("value", username);
+        $("#profile").attr("src", "assets/images/" + username + ".png");//need fix. displays image enkel na een paar keer reladen AJAX call fix
+        openSocket();
+        init = false;
+    }
 
-    //need fix. displays image enkel na een paar keer reladen AJAX call fix
-
-
-
-
-    
 
 
 
@@ -86,19 +80,26 @@ $(document).ready(function () {
         e.preventDefault();
         message = preventJSInjection($("#mess").val());
         setTimeout(function () {
-            if (message.replace(/\s+/g, "") !== "" && message.length<100) {
+            if (message.replace(/\s+/g, "") !== "" && message.length < 100) {
 
-                addToConversation(username + ": " + message, username);
+                addToConversation(username + ": " + message, "me");
 
                 send(username, message);
                 $("#mess").val("");
             }
         }, 500)
-        
-        
+
+
     });
 
 
 
 }
-)
+);
+
+
+
+
+
+
+
