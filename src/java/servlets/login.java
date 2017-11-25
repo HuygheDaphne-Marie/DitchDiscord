@@ -44,8 +44,7 @@ public class login extends HttpServlet {
         boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
         User u = Repositories.getUserRepository().getUserByUsername(username);
 
-     if (verify)
-     {
+  
       System.out.println("Either user name or password is wrong.");
         if (u != null) {
             if (BCrypt.checkpw(password, u.getPassword()) && verify) {
@@ -65,12 +64,6 @@ public class login extends HttpServlet {
             response.sendRedirect("index.html");
             //request.getRequestDispatcher("index.html").forward(request, response);
         }
-     } else
-     {
-       response.sendRedirect("index.html");
-         //request.getRequestDispatcher("index.html").forward(request, response);
-       System.out.println("You missed the Captcha.");  
-     }
         
    
 

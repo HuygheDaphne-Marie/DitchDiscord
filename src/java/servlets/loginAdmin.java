@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "loginAdmin", urlPatterns = {"/loginAdmin"})
 public class loginAdmin extends HttpServlet {
    public static final String SESS_ADMIN = "ADMIN";
-   public static final String ADMIN_NAME="ditchAdmin";
+    public static final String ADMIN_NAME="ditchAdmin";
    public static final String ADMIN_PASS="d33z_nu7z";
 
     /**
@@ -39,25 +39,25 @@ public class loginAdmin extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
-        if(username.equals(ADMIN_NAME))
+        if(username != null && username.equals(ADMIN_NAME))
         {
             if(password.equals("d33z_nu7z"))
             {
                //response.sendRedirect("AdministratorPage.jsp");
                  request.getRequestDispatcher("AdministratorPage.jsp").forward(request, response);
-               request.getSession().setAttribute(SESS_ADMIN,username);
+                request.getSession().setAttribute(SESS_ADMIN,username);
                
             }
             else
             {
-              //response.sendRedirect("administratorLoginPage.html");
-                 request.getRequestDispatcher("AdministratorLoginPage.html").forward(request, response);
+              response.sendRedirect("administratorLoginPage.html");
+                
             }
         }
         else
         {
-            //response.sendRedirect("administratorLoginPage.html
-            request.getRequestDispatcher("AdministratorLoginPage.html").forward(request, response);
+            response.sendRedirect("administratorLoginPage.html");
+          
         }
             
 
