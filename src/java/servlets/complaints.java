@@ -40,8 +40,9 @@ public class complaints extends HttpServlet {
      
      //to do sanitation
      Repositories.getComplaintsRepository().AddComplaint(complaintfrom, complainttype, complaint);
-    //response.sendRedirect("complaints.html");
-    request.getRequestDispatcher("complaints.html").forward(request, response);
+    response.sendRedirect("complaints.html");
+    //request.getRequestDispatcher("complaints.html").forward(request, response);
+  
        
      
      
