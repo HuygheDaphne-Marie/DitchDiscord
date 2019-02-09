@@ -5,3 +5,4 @@ A simple websockets chat client which was made as part of a school project where
 # What I Learned
 
 * Using websockets
+* Implementing security measures
