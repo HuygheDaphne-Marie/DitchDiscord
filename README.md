@@ -1,17 +1,7 @@
-Status local git: git status
+# Ditch Discord
 
-Add file to the commit: git add <file>
+A simple websockets chat client which was made as part of a school project where we learned how to write secure code and secure a server.
 
-Commit your changes: git commit -m 'message about the commit goes here'
+# What I Learned
 
-Add branch: git checkout -b <Name of branch>
-
-Switch branch: git checkout <Name of branch>
-
-Merge branch: git merge <Name of branch you want to merge with branch you are on> -m 'message about the merge goes here'
-
-Remote repo add: git remote add origin <link naar repo>
-
-Remote repo pull: git pull <remote repo (origin)> <branch> 
-
-Remote repo push: git push -u <remote repo (origin)> <branch> 
+* Using websockets
